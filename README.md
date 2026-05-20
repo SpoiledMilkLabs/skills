@@ -36,11 +36,24 @@ Restart Claude Code after installing so it picks up the new skills.
 
 ## Skills
 
-| Skill | What it does |
-|-------|--------------|
-| [handoff](skills/handoff) | Capture session state at the end of a coding session so a future Claude Code session can resume cold. Writes a per-project `HANDOFF.md` plus a one-line entry to a central index, so you can see at a glance which project you left in the hottest state. |
+| Skill | Version | What it does |
+|-------|---------|--------------|
+| [handoff](skills/handoff) | v1.1.0 | Capture session state at the end of a coding session so a future Claude Code session can resume cold. Writes a per-project `HANDOFF.md` plus a deduped one-line entry to a central index, so you can see at a glance which project you left in the hottest state. Configurable retention: keep one archive per slug, or keep a full version history. |
 
 More coming as I make them.
+
+## Updates
+
+See [CHANGELOG.md](CHANGELOG.md) for what changed in each release. The handoff skill checks for new releases once per day on resume and prints a notice if one is out. To upgrade, `git pull && ./install.sh` in this repo.
+
+## Configuration (handoff)
+
+The handoff skill writes a default config to `~/.claude/handoffs/config.json` on first run. The two settings worth knowing about:
+
+- `retention`: `"archive"` (default — one archive slot per slug) or `"version-history"` (keep last N versions per slug under `sessions/.history/<slug>/vN.md`).
+- `max_versions`: cap when `retention` is `"version-history"`. Default 10.
+
+Edit the JSON and the skill picks it up on the next invocation.
 
 ## Credits
 
