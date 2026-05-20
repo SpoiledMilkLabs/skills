@@ -2,6 +2,13 @@
 
 All notable changes to skills in this repo. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semver](https://semver.org/).
 
+## [1.1.1] — 2026-05-20
+
+### Changed
+- **`install.sh` now prints the version of each skill it installs.** Reads the `version:` field from each `SKILL.md` and appends it in parentheses (e.g. `installed handoff (1.1.0)`). Empty version field is tolerated — line falls back to skill name only.
+
+[1.1.1]: https://github.com/SpoiledMilkLabs/skills/releases/tag/v1.1.1
+
 ## [1.1.0] — 2026-05-20
 
 ### Handoff skill

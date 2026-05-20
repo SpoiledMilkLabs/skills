@@ -33,7 +33,8 @@ for skill in "$SRC_DIR"/*/; do
   fi
 
   cp -r "$skill" "$dest"
-  echo "  installed $name"
+  version=$(awk '/^version:/ {print $2; exit}' "$dest/SKILL.md" 2>/dev/null)
+  echo "  installed $name${version:+ ($version)}"
   installed=$((installed + 1))
 done
 
