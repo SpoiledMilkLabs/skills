@@ -2,6 +2,41 @@
 
 All notable changes to skills in this repo. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semver](https://semver.org/).
 
+## [1.3.0] — 2026-05-25
+
+### Handoff skill
+
+#### Added
+
+- **Digest / Appendix template split.** The handoff template is now two parts: a tight Digest (Goal, Status totals, Next step) at the top and an Appendix (DONE/PARTIAL/NOT DONE lists, Files to know, Key decisions, Failed approaches, Open questions, References) below. Resume mode reads the whole file but only *re-states* the Digest into working memory — the Appendix is consulted on demand when the next action touches it. Burns roughly 70% fewer tokens per resume.
+  - *Backward compatible:* old handoffs without the split are treated as one big Digest.
+- **Ambiguous-cwd guard for `.active.json`.** When cwd is exactly `$HOME` or `/`, the pin is too coarse to silently trust — the skill now surfaces a one-line confirm ("Reuse pinned slug `<slug>` from <date>, or start a new session?") before reusing. Without this, unrelated sessions started from `$HOME` would silently overwrite each other's handoffs.
+- **Secrets discipline.** New rule + anti-pattern: never inline API keys, tokens, `.env` values, passwords, or PII into a handoff. Reference by path; never by value. Handoffs sit in `~/.claude/handoffs/` and are read by any future model invocation.
+- **"What this skill does NOT do" section.** Explicitly states the skill cannot relieve in-session context — the conversation transcript is already cached when `/handoff create` runs. Step 5 now prompts the user to `/clear` before resuming, with a callout that a fresh session resumes for ~500 tokens vs the full transcript.
+- **`update_check.throttle_days` config.** Default 7 (was effectively daily). Tuning knob for users who want quieter checks.
+
+#### Changed
+
+- **Update check moved off resume.** Resume mode no longer blocks on the GitHub API call — that 3–5 second roundtrip on the first invocation of the day made resume feel slow. The check now fires on `list` mode only (a less-frequent, user-initiated discovery flow). Timeout tightened from 5s to 3s.
+- **Resume Step 4 skips the diff when HEAD hasn't moved.** Parses the handoff's `**HEAD:**` line, compares to current `HEAD`. Equal SHAs → skip `git diff <handoff-HEAD>..HEAD`. Falls back gracefully if the SHA was force-pushed away.
+- **`Files to know` and `Key decisions` switched from markdown tables to bullet lists.** Tables cost roughly 30% more tokens to read than equivalent bullets, and the resume path reads these on most invocations.
+- **Step 5 confirm message rewritten** with explicit instructions on the `/clear` step.
+
+[1.3.0]: https://github.com/SpoiledMilkLabs/skills/releases/tag/v1.3.0
+
+## [1.2.0] — 2026-05-21
+
+### Handoff skill
+
+#### Added
+
+- **`.active.json` slug pin for post-`/clear` recovery.** Non-git handoffs now write `~/.claude/handoffs/.active.json` mapping the absolute cwd to the active slug. When `/clear` wipes in-conversation memory, the next invocation in the same cwd silently reuses the pinned slug instead of inventing a fresh one and orphaning the existing handoff file. TTL: 7 days. Atomic write via `.tmp` + `mv`.
+  - *Before:* `/clear` + `/handoff` in the same cwd generated a new slug, displaced the old line from the index, and (under `retention: archive`) moved the old file into `sessions/archive/` — effectively deleting saved state.
+  - *After:* same flow silently reuses the pinned slug. No archive sweep, no displacement.
+- **Resume mode also writes the pin.** When resuming a non-git handoff, the slug is pinned to disk for the current cwd — so a `/clear` mid-resume still survives.
+
+[1.2.0]: https://github.com/SpoiledMilkLabs/skills/releases/tag/v1.2.0
+
 ## [1.1.1] — 2026-05-20
 
 ### Changed
