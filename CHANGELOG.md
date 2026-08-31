@@ -2,6 +2,15 @@
 
 All notable changes to skills in this repo. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semver](https://semver.org/).
 
+## [1.4.1] — 2026-09-01
+
+### Hydra skill (v1.0.1)
+
+#### Fixed
+
+- **REPL submit bug**: `do script "text"` only inserts into the Claude Code input box — the trailing newline never submits (paste handling swallows it). `kick_head.sh` now follows the kickoff with a bare `do script ""`, which acts as the Enter press. Dialogs still react to the plain trailing newline; only the REPL input box needs the extra step.
+- **Spinner detection**: multibyte spinner glyphs moved from a grep bracket class (which matches bytes, not characters) to alternation, and token counters without a `k` suffix (`↓ 88 tokens`) now count as working.
+
 ## [1.4.0] — 2026-08-31
 
 ### Hydra skill (new, v1.0.0)

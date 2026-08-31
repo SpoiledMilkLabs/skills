@@ -44,6 +44,20 @@ on run argv
 	end tell
 end run
 EOF
+				# do script's trailing newline only INSERTS into the Claude REPL input
+				# (paste handling swallows it); a separate bare do script is the Enter press
+				sleep 1
+				osascript - "$WID" <<'EOF'
+on run argv
+	tell application "Terminal"
+		repeat with w in windows
+			if (id of w) = ((item 1 of argv) as integer) then
+				do script "" in selected tab of w
+			end if
+		end repeat
+	end tell
+end run
+EOF
 				KICKED=1
 				sleep 3
 			fi ;;

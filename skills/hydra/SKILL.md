@@ -1,6 +1,6 @@
 ---
 name: hydra
-version: 1.0.0
+version: 1.0.1
 description: Fan multiple independent tasks out to SEPARATE Terminal.app windows, each running its own live claude session with exactly the context it needs — real parallel sessions with isolated context windows, not subagents. Confirms grouping/model/risk with the user before launching, delivers context invisibly, auto-tiles windows, and signals completion via done-files + macOS toasts. Trigger when the user types /hydra <tasks | transcript>, /hydra status|rekick|kill|clean, or asks to split work across terminals / open a terminal per task / "one claude per task". NOT for subagent parallelism inside one session, and not for single tasks.
 risk: high
 source: original
