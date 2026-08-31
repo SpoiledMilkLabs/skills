@@ -2,7 +2,22 @@
 
 All notable changes to skills in this repo. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semver](https://semver.org/).
 
-## [1.3.0] — 2026-05-25
+## [1.4.0] — 2026-08-31
+
+### Hydra skill (new, v1.0.0)
+
+#### Added
+
+- **Hydra**: fan multiple independent tasks out to separate Terminal.app windows, each a live `claude` session with exactly the context it needs. Born from running six real tasks in parallel and keeping every gotcha the run surfaced.
+- Tasks grouped by working directory (one terminal = one repo = one owner; shared repos get worktrees), with cross-task handoff files and staged launch waves for dependencies.
+- **Confirmation gate before spending anything**: grouping table, per-head risk tier (with a no-bypass "safe" mode for heads that touch money paths or prod), usage-burn warning above 4 heads, and a **model strategy** pick — maestro (flagship plans, sonnet/haiku execute), flagship-lead, uniform, or custom.
+- Mechanics shipped as eight tested shell scripts (launch, kick, state, status, tile, kill, rekick, sweep) driven by a per-run TSV manifest — nothing re-derived at runtime.
+- Race-free launch protocol: bare `claude` with no positional prompt, kick only when the REPL is provably ready. Auto-answers the folder-trust dialog via tty injection (no Accessibility permission needed).
+- Windows auto-tile into a grid with a cell reserved for the conductor, color-coded profiles, and per-head tab titles.
+- Push-based completion: each head writes a done-file and fires a macOS notification when finished.
+- A "Known gotchas" section documenting the failure modes that cost real debugging time (trust dialog vs positional prompt, spinner-text variants, `frontmost` not being a window property, screen-contents vs scrollback).
+
+
 
 ### Handoff skill
 

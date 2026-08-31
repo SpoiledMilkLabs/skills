@@ -39,6 +39,7 @@ Restart Claude Code after installing so it picks up the new skills.
 | Skill | Version | What it does |
 |-------|---------|--------------|
 | [handoff](skills/handoff) | v1.3.0 | Capture session state at the end of a coding session so a future Claude Code session can resume cold. Writes a per-project `HANDOFF.md` plus a deduped one-line entry to a central index, so you can see at a glance which project you left in the hottest state. Digest + Appendix template keeps resume cost low; configurable retention (single-archive or full version history); `.active.json` pin survives `/clear`. |
+| [hydra](skills/hydra) | v1.0.0 | Fan a pile of tasks out to separate Terminal.app windows, each running its own live claude session — real parallel sessions with isolated context windows, not subagents. Groups tasks by repo, confirms the plan (and a model strategy — flagship plans, cheap models execute) before spending anything, launches and auto-tiles the windows, answers the trust dialogs, and signals completion with macOS notifications. macOS only. |
 
 More coming as I make them.
 
