@@ -2,6 +2,15 @@
 
 All notable changes to skills in this repo. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semver](https://semver.org/).
 
+## [1.4.2] — 2026-09-01
+
+### Hydra skill (v1.0.2)
+
+#### Fixed
+
+- **New trust-dialog wording**: a Claude Code update changed the folder-trust dialog to "Is this a project you created or one you trust?" with **"No, exit" as the default highlight** — the old detector missed it, fell through to the idle state, and the kick's Enter confirmed "No", exiting claude. state.sh now matches all known wordings, and a new `shell` state catches a window where claude has exited to a bare prompt.
+- More spinner glyph variants; small-token counters covered.
+
 ## [1.4.1] — 2026-09-01
 
 ### Hydra skill (v1.0.1)
