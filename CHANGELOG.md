@@ -2,6 +2,15 @@
 
 All notable changes to skills in this repo. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow [semver](https://semver.org/).
 
+## [1.4.3] — 2026-09-03
+
+### Hydra skill (v1.0.3)
+
+#### Fixed
+
+- **`shell` state was detected but never handled**: v1.4.2 taught `state.sh` to report `shell` when claude has exited to a bare prompt, but `kick_head.sh` had no case for it, so a dead head sat through all 45 polls and surfaced only as a generic TIMEOUT. It now exits immediately with "claude exited to a shell prompt" so the conductor can `rekick`.
+- `state.sh` header comment lists the `shell` state.
+
 ## [1.4.2] — 2026-09-01
 
 ### Hydra skill (v1.0.2)

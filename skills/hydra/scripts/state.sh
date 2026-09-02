@@ -1,5 +1,5 @@
 #!/bin/zsh
-# state.sh <window_id> — print head state: dead | trust-dialog | booting | working | awaiting-approval | idle-repl
+# state.sh <window_id> — print head state: dead | trust-dialog | shell | booting | working | awaiting-approval | idle-repl
 WID=$1
 C=$(osascript - "$WID" <<'EOF'
 on run argv

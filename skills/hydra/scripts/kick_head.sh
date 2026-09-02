@@ -14,6 +14,7 @@ for i in {1..45}; do
 	S=$("$DIR/state.sh" "$WID")
 	case "$S" in
 		dead) echo "head $N: DEAD"; exit 1 ;;
+		shell) echo "head $N: claude exited to a shell prompt"; exit 1 ;;
 		trust-dialog)
 			# Yes = down-arrow + enter; do script's trailing newline is the enter
 			osascript - "$WID" <<'EOF'
